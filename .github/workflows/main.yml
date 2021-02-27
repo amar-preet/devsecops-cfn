@@ -13,10 +13,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        name: Checkout Code
-
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        
       - name: IaC Static Code Analysis
         uses: bridgecrewio/checkov-action@v5
-
-      - name: IaC Unit Test
