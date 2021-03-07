@@ -17,9 +17,16 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: '^1.13.1'
+          
+      - name: Go path
+        run: |
+            @echo "GO ENV"
+            GOPATH=${GOPATH} ${GO} env
+            @echo ${GO} version
+            @echo    
 
       - name: IAC End to End Test
-        uses: go test -v -timeout 30m  
+        uses: go test ../test/
         
       - name: IaC Static Code Analysis
         uses: bridgecrewio/checkov-action@v5
