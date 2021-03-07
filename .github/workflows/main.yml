@@ -26,7 +26,7 @@ jobs:
             @echo    
 
       - name: IAC End to End Test
-        uses: go test
+        run: go test
         
       - name: IaC Static Code Analysis
         uses: bridgecrewio/checkov-action@v5
