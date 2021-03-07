@@ -10,6 +10,7 @@ Resources:
     Properties:
       ImageId: ami-09c5e030f74651050
       InstanceType: t2.micro
+      AssociatePublicIpAddress: true
       SecurityGroups:
         - !Ref SSHSecurityGroup
         - !Ref ServerSecurityGroup
@@ -26,7 +27,7 @@ Resources:
     Properties:
       GroupDescription: Enable SSH access via port 22
       SecurityGroupIngress:
-      - CidrIp: 0.0.0.0/0
+      - CidrIp: 10.0.0.1/32
         FromPort: 22
         IpProtocol: tcp
         ToPort: 22
@@ -40,7 +41,7 @@ Resources:
       - IpProtocol: tcp
         FromPort: 80
         ToPort: 80
-        CidrIp: 0.0.0.0/0
+        CidrIp: 10.0.0.1/32
       - IpProtocol: tcp
         FromPort: 22
         ToPort: 22

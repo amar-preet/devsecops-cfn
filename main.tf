@@ -5,6 +5,10 @@ provider "aws" {
 resource "aws_instance" "ubuntu" {
   ami           = "ami-09c5e030f74651050"
   instance_type = "t2.micro"
+  # comment this
+  root_block_device {
+    encrypted = true
+  }
 }
 
 resource "aws_eip" "ubuntu" {
@@ -21,13 +25,13 @@ resource "aws_security_group" "allow_tls" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.1/32"] # change it to "0.0.0.0/0"
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.1/32"] # change it to "0.0.0.0/0"
   }
 }
