@@ -1,16 +1,14 @@
 package test
 
 import (
-	"fmt"
 	"testing"
-	"time"
 
-	http_helper "github.com/gruntwork-io/terratest/modules/http-helper"
-
+	"github.com/gruntwork-io/terratest/modules/aws"
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/stretchr/testify/assert"
 )
 
-func TestTerraformAwsHelloWorldExample(t *testing.T) {
+func TestIpAddress(t *testing.T) {
 	t.Parallel()
 
 	// retryable errors in terraform testing.
@@ -23,7 +21,7 @@ func TestTerraformAwsHelloWorldExample(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptions)
 
 	publicIP := terraform.Output(t, terraformOptions, "public_ip")
-
-	url := fmt.Sprintf("http://%s:8080", publicIP)
-	http_helper.HttpGetWithRetry(t, url, nil, 200, "Hello, World!", 5, 5*time.Second)
+	instanceID := terraform.Output(t, terraformOptions, "instance_id")
+	instanceIPFromInstance := aws.GetPublicIpOfEc2Instance(t, instanceID)
+	assert.Equal(t, publicIP, instanceIPFromInstance)
 }
