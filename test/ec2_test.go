@@ -22,6 +22,6 @@ func TestIpAddress(t *testing.T) {
 
 	publicIP := terraform.Output(t, terraformOptions, "public_ip")
 	instanceID := terraform.Output(t, terraformOptions, "instance_id")
-	instanceIPFromInstance := aws.GetPublicIpOfEc2Instance(t, instanceID)
+	instanceIPFromInstance := aws.GetPublicIpOfEc2Instance(t, instanceID, "us-west-2")
 	assert.Equal(t, publicIP, instanceIPFromInstance)
 }
