@@ -3,12 +3,10 @@ package test
 import (
 	"testing"
 
-	"github.com/gruntwork-io/terratest/modules/aws"
 	"github.com/gruntwork-io/terratest/modules/terraform"
-	"github.com/stretchr/testify/assert"
 )
 
-func TestIpAddress(t *testing.T) {
+func TestSSHKey(t *testing.T) {
 	t.Parallel()
 
 	// retryable errors in terraform testing.
@@ -20,8 +18,12 @@ func TestIpAddress(t *testing.T) {
 
 	terraform.InitAndApply(t, terraformOptions)
 
-	publicIP := terraform.Output(t, terraformOptions, "public_ip")
-	instanceID := terraform.Output(t, terraformOptions, "instance_id")
-	instanceIPFromInstance := aws.GetPublicIpOfEc2Instance(t, instanceID, "us-west-2")
-	assert.Equal(t, publicIP, instanceIPFromInstance)
+	/*instanceSSHKey := strings.TrimSuffix(terraform.Output(t, terraformOptions, "instance_key"), "%")
+	fmt.Print(instanceSSHKey)
+	assert.Equal(t, "or", instanceSSHKey)
+
+	instanceIP := strings.TrimSuffix(terraform.Output(t, terraformOptions, "instance_public_ip"), "%")
+	instanceID := strings.TrimSuffix(terraform.Output(t, terraformOptions, "instance_id"), "%")
+	instanceIPFromInstance := strings.TrimSuffix(aws.GetPublicIpOfEc2Instance(t, instanceID, "us-west-2"), "%")
+	assert.Equal(t, instanceIP, instanceIPFromInstance)*/
 }
